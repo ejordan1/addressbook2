@@ -1,0 +1,15 @@
+#cardStyles {
+  font-family: 'Arimo', sans-serif;
+  text-align: center;
+  color: white;
+  /* font-weight: bold; */
+}
+
+#contactForm {
+  text-align: right;
+  padding-right: 42%;
+}
+
+.hide{
+  display: none;
+}
