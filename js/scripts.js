@@ -50,9 +50,11 @@ AddressBook.prototype.printAddressBook = function(){
 }
 
 AddressBook.prototype.deleteContact = function(id){
+  debugger;
   for (var i = 0; i < contacts.length; i++) {
     if (contacts[i].id === id) {
       delete contacts[i];
+      return;
     }
   }
 }
@@ -96,23 +98,21 @@ $(document).ready(function(){
     theAddressBook.addContact(newContact);
     //"<div class=\'col-md-12 card bg-success\'>" + "<div class=\'card-header\' id=\'header" + newContact.id + "\'>" +  newContact.fullName() + "</div>" + "</div>"
 
-    $("#contactShow").append("<div class=\'col-md-12 card bg-success\' id=\'card" + newContact.id + "\'>" + "<div class=\'card-header\' id=\'header" + newContact.id + "\'>" +  newContact.fullName() + "</div>" + "<div class=\'card-body hide\' id=\'body" + newContact.id + "\'> <ul><li> Home Phone: " + newContact.homePhone + "</li><li> Cell Number: " + newContact.cellPhone + "</li><li>Email Address: " + newContact.emailAddress + "</li><li>Address: " + newContact.physicalAddress + "</li></ul><button type=\'button\' name=\'deleteContact\' id=\'" + newContact.id + "\'>Remove Contact</button></div></div>");
+    $("#contactShow").append("<div class=\'col-md-12 card bg-success\' id=\'card" + newContact.id + "\'>" + "<div class=\'card-header\' id=\'header" + newContact.id + "\'>" +  newContact.fullName() + "</div>" + "<div class=\'card-body hide\' id=\'body" + newContact.id + "\'> <ul><li> Home Phone: " + newContact.homePhone + "</li><li> Cell Number: " + newContact.cellPhone + "</li><li>Email Address: " + newContact.emailAddress + "</li><li>Address: " + "<br>" + newContact.physicalAddress.address1 + "<br>" + newContact.physicalAddress.address2 + "</li></ul><button type=\'button\' name=\'deleteContact\' id=\'" + newContact.id + "\'>Remove Contact</button></div></div>");
 
     $("#header" + newContact.id).click(function(){
       $("#body" + newContact.id).slideToggle();
     });
 
     $("#" + newContact.id).click(function(){
-      theAddressBook.deleteContact(this.id);
+      console.log(theAddressBook.printAddressBook());
+      theAddressBook.deleteContact(parseInt(this.id));
+      console.log(theAddressBook.printAddressBook());
       $("#card" + newContact.id).slideToggle();
-
-
     });
 
     // $("#contactShow").append("<ul>"  + newContact.fullName() + "</ul>");
     emptyInputs();
-
-
 
     event.preventDefault();
   });
@@ -127,5 +127,3 @@ function emptyInputs(){
   document.getElementById('address1').value = '';
   document.getElementById('address2').value = '';
 }
-
-// FIX ADDRESS DISPLAY THAT IS A NESTED OBJECT
